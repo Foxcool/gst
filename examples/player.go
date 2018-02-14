@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/ziutek/gtk"
-	"github.com/ziutek/gst"
+	"github.com/Foxcool/gst"
 )
 
 type Player struct {

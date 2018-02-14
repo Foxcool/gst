@@ -3,11 +3,11 @@
 This package is based on [GLib bindings](https://github.com/ziutek/glib). It
 should be goinstalable. Try
 
-    $ go get github.com/ziutek/gst
+    $ go get github.com/Foxcool/gst
 
 #### Documentation
 
-See *examples* directory and http://gopkgdoc.appspot.com/pkg/github.com/ziutek/gst
+See *examples* directory and http://gopkgdoc.appspot.com/pkg/github.com/Foxcool/gst
 
 To run examples use `go run` command:
 
