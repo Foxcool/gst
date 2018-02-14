@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"syscall"
 
-	"github.com/ziutek/glib"
+	"github.com/Foxcool/glib"
 	"github.com/Foxcool/gst"
 )
 

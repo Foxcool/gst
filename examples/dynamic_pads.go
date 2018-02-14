@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ziutek/glib"
+	"github.com/Foxcool/glib"
 	"github.com/Foxcool/gst"
 )
 

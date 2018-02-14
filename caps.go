@@ -12,7 +12,7 @@ import "C"
 
 import (
 	"unsafe"
-	"github.com/ziutek/glib"
+	"github.com/Foxcool/glib"
 )
 
 type Caps C.GstCaps
