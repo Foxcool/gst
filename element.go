@@ -7,8 +7,9 @@ package gst
 import "C"
 
 import (
-	"github.com/ziutek/glib"
 	"unsafe"
+
+	"github.com/ziutek/glib"
 )
 
 type State C.GstState
@@ -89,6 +90,15 @@ func (e *Element) LinkPads(pad_name string, dst *Element, dst_pad_name string) b
 	dst_pname := (*C.gchar)(C.CString(dst_pad_name))
 	defer C.free(unsafe.Pointer(dst_pname))
 	return C.gst_element_link_pads(e.g(), src_pname, dst.g(), dst_pname) != 0
+}
+
+// LinkPadsFiltered - links elements pads with filter
+func (e *Element) LinkPadsFiltered(padName string, dst *Element, dstPadName string, filter *Caps) bool {
+	srcPadName := (*C.gchar)(C.CString(padName))
+	defer C.free(unsafe.Pointer(srcPadName))
+	gDstPadName := (*C.gchar)(C.CString(dstPadName))
+	defer C.free(unsafe.Pointer(gDstPadName))
+	return C.gst_element_link_pads_filtered(e.g(), srcPadName, dst.g(), gDstPadName, filter.g()) != 0
 }
 
 func (e *Element) UnlinkPads(pad_name string, dst *Element, dst_pad_name string) {
