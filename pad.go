@@ -8,19 +8,20 @@ import "C"
 
 import (
 	"unsafe"
+
 	"github.com/ziutek/glib"
 )
 
 type PadLinkReturn C.GstPadLinkReturn
 
 const (
-  PAD_LINK_OK = PadLinkReturn(C.GST_PAD_LINK_OK)
-  PAD_LINK_WRONG_HIERARCHY = PadLinkReturn(C.GST_PAD_LINK_WRONG_HIERARCHY)
-  PAD_LINK_WAS_LINKED = PadLinkReturn(C.GST_PAD_LINK_WAS_LINKED)
-  PAD_LINK_WRONG_DIRECTION = PadLinkReturn(C.GST_PAD_LINK_WRONG_DIRECTION)
-  PAD_LINK_NOFORMAT = PadLinkReturn(C.GST_PAD_LINK_NOFORMAT)
-  PAD_LINK_NOSCHED = PadLinkReturn(C.GST_PAD_LINK_NOSCHED)
-  PAD_LINK_REFUSED = PadLinkReturn(C.GST_PAD_LINK_REFUSED)
+	PAD_LINK_OK              = PadLinkReturn(C.GST_PAD_LINK_OK)
+	PAD_LINK_WRONG_HIERARCHY = PadLinkReturn(C.GST_PAD_LINK_WRONG_HIERARCHY)
+	PAD_LINK_WAS_LINKED      = PadLinkReturn(C.GST_PAD_LINK_WAS_LINKED)
+	PAD_LINK_WRONG_DIRECTION = PadLinkReturn(C.GST_PAD_LINK_WRONG_DIRECTION)
+	PAD_LINK_NOFORMAT        = PadLinkReturn(C.GST_PAD_LINK_NOFORMAT)
+	PAD_LINK_NOSCHED         = PadLinkReturn(C.GST_PAD_LINK_NOSCHED)
+	PAD_LINK_REFUSED         = PadLinkReturn(C.GST_PAD_LINK_REFUSED)
 )
 
 func (p PadLinkReturn) String() string {
@@ -46,9 +47,9 @@ func (p PadLinkReturn) String() string {
 type PadDirection C.GstPadDirection
 
 const (
-  PAD_UNKNOWN = PadDirection(C.GST_PAD_UNKNOWN)
-  PAD_SRC = PadDirection(C.GST_PAD_SRC)
-  PAD_SINK = PadDirection(C.GST_PAD_SINK)
+	PAD_UNKNOWN = PadDirection(C.GST_PAD_UNKNOWN)
+	PAD_SRC     = PadDirection(C.GST_PAD_SRC)
+	PAD_SINK    = PadDirection(C.GST_PAD_SINK)
 )
 
 func (p PadDirection) g() C.GstPadDirection {
@@ -85,6 +86,17 @@ func (p *Pad) CanLink(sink_pad *Pad) bool {
 
 func (p *Pad) Link(sink_pad *Pad) PadLinkReturn {
 	return PadLinkReturn(C.gst_pad_link(p.g(), sink_pad.g()))
+}
+
+// SetCaps sets the capabilities of this pad. The caps must be fixed.
+// Any previous caps on the pad will be unreffed.
+// This function refs the caps so you should unref if as soon as you don't need it anymore.
+// It is possible to set NULL caps, which will make the pad unnegotiated again.
+// Returns :
+//	TRUE if the caps could be set.
+//	FALSE if the caps were not fixed or bad parameters were provided to this function. MT safe.
+func (p *Pad) SetCaps(caps *Caps) bool {
+	return C.gst_pad_set_caps(p.g(), caps.g()) != 0
 }
 
 type GhostPad struct {
